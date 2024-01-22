@@ -1,0 +1,101 @@
+.button-service__modal {
+  position: relative;
+  background-color: var(--clr-primary);
+  border: 1px solid var(--clr-secondary);
+  border-radius: 2px;
+  box-shadow: 0 0 4px var(--clr-secondary), 0 0 4px var(--clr-secondary) inset;
+  padding: 2em;
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h3 {
+    text-align: center;
+    color: var(--clr-secondary);
+    margin: 0 2em 2em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid var(--clr-tertiary);
+    width: 100%;
+  }
+
+  ul {
+    margin: 0;
+    margin-left: 1em;
+    padding: 0;
+    width: fit-content;
+  }
+
+  li {
+    margin-bottom: 1em;
+  }
+
+  button {
+    border: none;
+    width: 1.5em;
+    height: 1.5em;
+    padding: 4px;
+    box-sizing: border-box;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 1em;
+    transition: transform 0.3s ease-in;
+
+    &:hover {
+      transform: scale(1.1, 1.1);
+
+      .bar {
+        background-color: var(--clr-secondary);
+      }
+    }
+
+    .bar {
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--clr-tertiary);
+      border-radius: 2px;
+      transition: background-color 0.3s ease-in;
+
+      &:nth-child(1) {
+        transform: rotate(45deg);
+      }
+
+      &:nth-child(2) {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
+
+.button-service__modal-enter {
+  max-height: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  height: 100%;
+}
+.button-service__modal-enter-active {
+  max-height: 100vh;
+  transition: all 600ms linear;
+  height: 100%;
+}
+.button-service__modal-exit {
+  max-height: 100vh;
+  height: 100%;
+}
+.button-service__modal-exit-active {
+  max-height: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: all 600ms linear;
+  height: 100%;
+}
+
+.button-service__modal-enter-done {
+  height: 100%;
+}

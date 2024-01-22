@@ -1,0 +1,7 @@
+@use '../properties';
+
+@mixin heading {
+  font-family: var(--font-heading);
+  font-weight: lighter;
+  text-transform: uppercase;
+}

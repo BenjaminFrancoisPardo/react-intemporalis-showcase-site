@@ -1,0 +1,215 @@
+@use "../mixins" as m;
+
+:root {
+  //number of characters per line
+  --typewriter-steps-one: 20;
+  --typewriter-steps-two: 20;
+  //cursor width
+  --typewriter-cursor-width: 0.05em;
+  //cursor blink speed
+  --typewriter-cursor-blink-speed: 500ms;
+  //cursor vanish speed
+  --typewriter-cursor-vanish-speed: 200ms;
+  //speeds
+  --typewriter-speed-one: 2s;
+  --typewriter-speed-two: 2s;
+  --glow-speed: 1s;
+  --slide-speed: 0.7s;
+  //delays
+  --typewriter-delay-one: 500ms;
+  --typewriter-delay-two: calc(
+    var(--typewriter-duration-one) + var(--typewriter-cursor-vanish-speed)
+  );
+  --infinity-delay: calc(
+    var(--typewriter-duration-two) + var(--slide-speed) + 0.5s
+  );
+  //duration
+  --typewriter-duration-one: calc(
+    var(--typewriter-speed-one) + var(--typewriter-delay-one)
+  );
+  --typewriter-duration-two: calc(
+    var(--typewriter-delay-two) + var(--typewriter-speed-two)
+  );
+  --typewriter-duration: calc(
+    var(--typewriter-duration-two) + var(--typewriter-cursor-vanish-speed)
+  );
+}
+
+.hero {
+  height: var(--navbar-menu-height);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  img {
+    width: clamp(60px, 25%, 100px);
+    margin-bottom: 1em;
+    opacity: 0;
+    animation: glow var(--glow-speed) linear var(--infinity-delay) forwards;
+  }
+}
+
+@keyframes glow {
+  0% {
+    filter: none;
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+    filter: drop-shadow(0px 0px 1px var(--clr-secondary));
+  }
+  50% {
+    filter: drop-shadow(0px 0px 4px var(--clr-secondary));
+    opacity: 1;
+  }
+  100% {
+    filter: none;
+    opacity: 1;
+  }
+}
+
+.hero__title {
+  margin-top: 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-ms);
+  text-transform: none;
+  font-size: clamp(22px, 6vw, 60px);
+  border: none;
+  padding: 0 0;
+
+  > span {
+    display: block;
+    position: relative;
+
+    span {
+      color: var(--clr-secondary);
+    }
+  }
+
+  .hero__line-text {
+    &::after,
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      content: '';
+    }
+  }
+
+  //First line of text
+  .hero__line-text:nth-child(1) {
+    &::before {
+      background-color: var(--clr-primary);
+      animation: typewriter var(--typewriter-speed-one)
+        steps(var(--typewriter-steps-one)) var(--typewriter-delay-one) forwards;
+    }
+
+    &::after {
+      width: var(--typewriter-cursor-width);
+      background: var(--clr-tertiary);
+      animation: typewriter var(--typewriter-speed-one)
+          steps(var(--typewriter-steps-one)) var(--typewriter-delay-one)
+          forwards,
+        blinks var(--typewriter-cursor-blink-speed)
+          steps(var(--typewriter-steps-one)) infinite,
+        vanishes var(--typewriter-cursor-vanish-speed) ease-in
+          var(--typewriter-duration-one) forwards;
+    }
+  }
+
+  //Second line of text
+  .hero__line-text:nth-child(2) {
+    &::before {
+      background-color: var(--clr-primary);
+      animation: typewriter var(--typewriter-speed-two)
+        steps(var(--typewriter-steps-two)) var(--typewriter-delay-two) forwards;
+    }
+
+    &::after {
+      width: var(--typewriter-cursor-width);
+      background: var(--clr-primary);
+      animation: typewriter var(--typewriter-speed-two)
+          steps(var(--typewriter-steps-two)) var(--typewriter-delay-two)
+          forwards,
+        blinks var(--typewriter-cursor-blink-speed)
+          steps(var(--typewriter-steps-two)) infinite,
+        appears var(--typewriter-cursor-vanish-speed) ease-in
+          var(--typewriter-delay-two) forwards,
+        vanishes var(--typewriter-cursor-vanish-speed) ease-in
+          var(--typewriter-duration-two) forwards;
+    }
+  }
+
+  @keyframes typewriter {
+    to {
+      left: 100%;
+    }
+  }
+
+  @keyframes blinks {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes vanishes {
+    to {
+      background: var(--clr-primary);
+    }
+  }
+
+  @keyframes appears {
+    to {
+      background: var(--clr-tertiary);
+    }
+  }
+}
+
+.hero__banner {
+  @include m.heading;
+  font-size: clamp(28px, 8vw, 88px);
+  line-height: 1.45;
+  height: fit-content;
+  overflow: hidden;
+
+  span {
+    display: block;
+    text-align: center;
+    transform: translateX(100vw);
+    animation: slide-left var(--slide-speed) ease-out var(--typewriter-duration)
+      forwards;
+  }
+}
+
+.hero__button {
+  margin-bottom: 2rem;
+  transform: translateX(-100vw);
+  animation: slide-right var(--slide-speed) ease-out var(--typewriter-duration)
+    forwards;
+}
+
+@keyframes slide-left {
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-right {
+  to {
+    transform: translateX(0);
+  }
+}
+
+.hero__content-link {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 1em;
+  text-decoration-style: dotted;
+}

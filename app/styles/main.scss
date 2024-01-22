@@ -1,0 +1,192 @@
+@use "mixins" as m;
+@use "components" as c;
+
+body {
+  color: var(--clr-tertiary);
+  background-color: var(--clr-primary);
+  margin: 0;
+  position: relative;
+  font-size: clamp(18px, 5vw, 24px);
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+  @include m.heading;
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(38px, 4.8vw, 80px);
+  text-align: center;
+  border-bottom: 1px solid var(--clr-secondary);
+  padding: 1em 0.5em;
+  text-align: center;
+}
+
+h2 {
+  font-size: clamp(22px, 3.6vw, 38px);
+}
+
+h3 {
+  font-size: clamp(20px, 3.2vw, 32px);
+}
+
+p,
+li,
+a,
+button,
+small,
+table,
+form,
+input,
+textarea {
+  font-family: var(--font-paragraph);
+  color: var(--clr-tertiary);
+}
+
+p,
+li,
+a,
+input {
+  font-size: clamp(16px, 2.3vw, 18px);
+}
+
+form,
+button {
+  font-size: clamp(16px, 3vw, 22px);
+}
+
+small {
+  font-size: 0.9rem;
+}
+
+p {
+  text-align: justify;
+}
+
+a {
+  &.current {
+    color: var(--clr-secondary);
+  }
+}
+
+//tables
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+tr,
+th {
+  border: 1px solid var(--clr-secondary);
+  padding: 2em 1em;
+}
+
+th {
+  text-transform: uppercase;
+  font-weight: inherit;
+}
+
+td {
+  ul {
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 0.5em;
+  }
+}
+
+//buttons
+button {
+  border: 2px solid var(--clr-tertiary);
+  border-radius: 2px;
+  padding: 0.8em 1.6em;
+  background: none;
+  cursor: pointer;
+}
+
+.main-button {
+  @extend button;
+  text-decoration: none;
+  text-align: center;
+  text-shadow: 0 0 4px var(--clr-tertiary);
+  box-shadow: 0 0 4px var(--clr-tertiary), 0 0 4px var(--clr-tertiary) inset;
+  transition: all 0.3s ease-in;
+
+  &:hover,
+  &:focus {
+    color: var(--clr-secondary);
+    border-color: var(--clr-secondary);
+    text-shadow: 0 0 4px var(--clr-secondary);
+    box-shadow: 0 0 4px var(--clr-secondary), 0 0 4px var(--clr-secondary) inset;
+  }
+}
+
+//forms
+input,
+textarea {
+  background: none;
+  border: 1px solid var(--clr-tertiary);
+  border-radius: 2px;
+}
+
+/////////////
+
+.container {
+  padding: 8vh 8vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  max-width: 1280px;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+//tools
+
+.noPaddingVertical {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.noPaddingTop {
+  padding-top: 0;
+}
+
+.positionFixed {
+  position: fixed;
+}
+
+.noScroll {
+  overflow: hidden;
+}
+
+.secondary-clr {
+  color: var(--clr-secondary);
+}
+
+.text-center {
+  text-align: center;
+}
